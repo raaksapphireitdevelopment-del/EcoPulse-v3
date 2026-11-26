@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Marketing Marketplace — EcoPulse</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- EcoPulse Design Tokens -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <style>
+    .marketplace-hero {
+      background: linear-gradient(135deg, #132a22 0%, #1b4332 50%, #2d6a4f 100%);
+      color: #ffffff;
+      padding: 3.5rem 0 3rem;
+    }
+    .listing-card {
+      background: #ffffff;
+      border: 1px solid var(--ep-border-color);
+      border-radius: var(--ep-radius-lg);
+      transition: all 0.25s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .listing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--ep-shadow-lg);
+      border-color: var(--ep-primary-accent);
+    }
+    .filter-bar {
+      background: #ffffff;
+      border-radius: var(--ep-radius-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      margin-top: -2rem;
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg ep-navbar sticky-top bg-white border-bottom shadow-sm">
+  <div class="container-fluid px-lg-5">
+    <a class="ep-navbar-brand text-decoration-none d-flex align-items-center gap-2" href="index.html">
+      <div class="auth-brand-logo" style="width: 36px; height: 36px; font-size: 1.2rem; background: var(--ep-primary); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-globe-americas"></i>
+      </div>
+      <div>
+        <strong class="text-dark fs-5">EcoPulse</strong>
+        <span class="badge bg-light text-success border border-success-subtle fw-medium ms-1" style="font-size: 0.65rem;">MARKETPLACE</span>
+      </div>
+    </a>
+
+    <div class="d-flex align-items-center gap-2">
+      <a href="index.html" class="btn btn-outline-secondary btn-sm px-3">Home</a>
+      <a href="login.html" class="btn btn-outline-primary btn-sm px-3">Sign In</a>
+      <a href="portal/client.html" class="btn btn-brand btn-sm px-3">
+        <i class="bi bi-speedometer2 me-1"></i> Client Portal
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="marketplace-hero">
+  <div class="container px-lg-5">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-3 border border-white border-opacity-25">
+          <i class="bi bi-patch-check-fill text-success"></i> Independently Verified Environmental Assets & Registry Credits
+        </div>
+        <h1 class="display-6 fw-bold mb-2 text-white">Carbon Marketing Marketplace</h1>
+        <p class="lead text-light mb-0" style="opacity: 0.9; font-size: 1.05rem;">
+          Connect directly with project originators. Browse verified carbon reduction and removal assets backed by accepted independent audit documentation and registry serials.
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container px-lg-5 mb-5">
+
+  <!-- Regulatory Notice Banner -->
+  <div class="alert alert-light border border-secondary border-opacity-25 rounded-3 py-2 px-3 mb-4 small d-flex align-items-center gap-2 shadow-sm">
+    <i class="bi bi-shield-check text-success fs-5"></i>
+    <div class="text-secondary">
+      <strong>Regulatory Notice:</strong> EcoPulse is a carbon intelligence platform and does not issue carbon credits, certify environmental projects, operate an exchange, or process financial transactions. All listings represent project originators' direct marketing offerings backed by accredited independent third-party audit documentation and recognized registry credentials.
+    </div>
+  </div>
+
+  <!-- Filter & Search Bar -->
+  <section class="filter-bar mb-4">
+    <form id="filter-form" onsubmit="MarketplaceApp.handleSearch(event)">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label small fw-semibold text-muted mb-1">Search Keywords</label>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control" id="filter-search" placeholder="Project title, methodology...">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label small fw-semibold text-muted mb-1">Domain</label>
+          <select class="form-select form-select-sm" id="filter-domain">
+            <option value="">All 9 Domains</option>
+            <option value="energy_utilities">Energy & Utilities</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="agriculture">Agriculture & Forestry</option>
+            <option value="transportation_logistics">Transportation & Logistics</option>
+            <option value="construction_realestate">Construction & Real Estate</option>
+            <option value="waste_management">Waste Management</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="hospitality_tourism">Hospitality & Tourism</option>
+            <option value="it_datacenters">IT & Data Centers</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label small fw-semibold text-muted mb-1">Asset Tier</label>
+          <select class="form-select form-select-sm" id="filter-classification">
+            <option value="">All Eligible Tiers</option>
+            <option value="verified_environmental_asset">Verified Asset</option>
+            <option value="issued_carbon_credit">Issued Carbon Credit</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label small fw-semibold text-muted mb-1">Country</label>
+          <input type="text" class="form-control form-control-sm" id="filter-country" placeholder="e.g. Kenya, India, US">
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label small fw-semibold text-muted mb-1">Sort By</label>
+          <select class="form-select form-select-sm" id="filter-sort">
+            <option value="newest">Newest First</option>
+            <option value="volume_high">Volume: High to Low</option>
+            <option value="volume_low">Volume: Low to High</option>
+            <option value="price_low">Price: Low to High</option>
+            <option value="price_high">Price: High to Low</option>
+          </select>
+        </div>
+
+        <div class="col-md-1 d-grid">
+          <button type="submit" class="btn btn-brand btn-sm">Filter</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Platform Disclaimer Box -->
+  <div class="alert alert-light border border-secondary border-opacity-25 rounded-3 d-flex align-items-center gap-3 py-2 px-3 mb-4 small text-secondary">
+    <i class="bi bi-shield-check fs-4 text-success flex-shrink-0"></i>
+    <div>
+      <strong>Regulatory Governance Notice:</strong> EcoPulse is a carbon intelligence and decarbonization project management software platform. EcoPulse does not issue credits, certify projects, operate a financial exchange, or process payments. All listings represent environmental assets or registry-issued credits submitted by organizations and independently moderated before showcase.
+    </div>
+  </div>
+
+  <!-- Listings Count & Status -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="text-muted small">
+      Showing <strong class="text-dark" id="listings-count">0</strong> published environmental project listings
+    </div>
+    <button class="btn btn-sm btn-link text-decoration-none text-muted" onclick="MarketplaceApp.resetFilters()">
+      <i class="bi bi-x-circle me-1"></i> Reset Filters
+    </button>
+  </div>
+
+  <!-- Listings Grid -->
+  <div class="row g-4" id="listings-grid">
+    <div class="col-12 text-center py-5">
+      <div class="spinner-border text-success" role="status"></div>
+      <div class="text-muted small mt-2">Loading verified marketplace listings...</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ================= LISTING DETAIL MODAL ================= -->
+<div class="modal fade" id="listingDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <span class="badge bg-light text-secondary border font-monospace me-2" id="modal-code">LISTING-CODE</span>
+          <span id="modal-tier-badge">Tier</span>
+          <h5 class="modal-title fw-bold mt-1" id="modal-title">Listing Title</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4" id="modal-body">
+        <!-- Injected detail content -->
+      </div>
+      <div class="modal-footer bg-light d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-brand" id="modal-inquire-btn" onclick="MarketplaceApp.openInquiryModal()">
+          <i class="bi bi-envelope-paper me-1"></i> Inquire About This Project
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= BUYER INQUIRY MODAL ================= -->
+<div class="modal fade" id="inquiryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Submit Buyer Inquiry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="inquiry-form" onsubmit="MarketplaceApp.handleInquirySubmit(event)">
+        <div class="modal-body">
+          <div class="alert alert-info py-2 small mb-3">
+            Inquiring about: <strong id="inquiry-listing-title">—</strong> (<span id="inquiry-listing-code" class="font-monospace">—</span>)
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Your Full Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="inq-name" required placeholder="Jane Doe">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Business Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control form-control-sm" id="inq-email" required placeholder="buyer@acme-corp.com">
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Company / Organization</label>
+              <input type="text" class="form-control form-control-sm" id="inq-org" placeholder="Acme Decarbonization LLC">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Inquiry Type <span class="text-danger">*</span></label>
+              <select class="form-select form-select-sm" id="inq-type" required>
+                <option value="general_inquiry">General Inquiry</option>
+                <option value="pricing_request">Pricing Request</option>
+                <option value="due_diligence">Due Diligence Review</option>
+                <option value="purchase_intent">Purchase Intent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Subject <span class="text-danger">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="inq-subject" required placeholder="e.g. Volume availability for Q3 2026 delivery">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Message & Requested Volume <span class="text-danger">*</span></label>
+            <textarea class="form-control form-control-sm" id="inq-message" rows="4" required placeholder="Specify your desired quantity, vintage requirements, settlement parameters, or questions regarding verification audit reports..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-brand btn-sm" id="submit-inquiry-btn">
+            <i class="bi bi-send me-1"></i> Send Inquiry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/core/config.js"></script>
+<script src="assets/js/core/notifications.js"></script>
+<script src="assets/js/core/api.js"></script>
+
+<!-- Marketplace Page Script -->
+<script>
+const MarketplaceApp = (() => {
+  let activeListings = [];
+  let selectedListing = null;
+
+  const escapeHtml = (str) => {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
+
+  const init = async () => {
+    await fetchListings();
+  };
+
+  const fetchListings = async () => {
+    const search = document.getElementById('filter-search').value.trim();
+    const domain = document.getElementById('filter-domain').value;
+    const classification = document.getElementById('filter-classification').value;
+    const country = document.getElementById('filter-country').value.trim();
+    const sort = document.getElementById('filter-sort').value;
+
+    const query = new URLSearchParams();
+    if (search) query.append('search', search);
+    if (domain) query.append('domain', domain);
+    if (classification) query.append('classification', classification);
+    if (country) query.append('country', country);
+    if (sort) query.append('sort', sort);
+
+    const grid = document.getElementById('listings-grid');
+    grid.innerHTML = `
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-success" role="status"></div>
+        <div class="text-muted small mt-2">Loading verified marketplace listings...</div>
+      </div>
+    `;
+
+    try {
+      const res = await EcoPulseApi.get(`/api/marketplace/listings?${query.toString()}`);
+      const raw = res.data;
+      activeListings = Array.isArray(raw) ? raw : (raw?.data || raw?.listings || []);
+      const total = raw?.total !== undefined ? raw.total : activeListings.length;
+      document.getElementById('listings-count').textContent = total;
+      renderListings();
+    } catch (err) {
+      grid.innerHTML = `
+        <div class="col-12 text-center py-5 text-danger">
+          <i class="bi bi-exclamation-triangle fs-2 d-block mb-2"></i>
+          Failed to load marketplace listings: ${escapeHtml(err.message)}
+        </div>
+      `;
+    }
+  };
+
+  const renderListings = () => {
+    const grid = document.getElementById('listings-grid');
+    if (!grid) return;
+
+    if (activeListings.length === 0) {
+      grid.innerHTML = `
+        <div class="col-12 text-center py-5 text-muted">
+          <i class="bi bi-tree fs-1 d-block mb-3 text-secondary"></i>
+          <h5>No listings found matching your criteria</h5>
+          <p class="small">Try adjusting your keyword search, domain selection, or tier filter.</p>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = activeListings.map(l => {
+      const isCredit = l.classification_tier === 'issued_carbon_credit';
+      const badge = isCredit 
+        ? '<span class="badge bg-success text-white"><i class="bi bi-award-fill me-1"></i>Issued Carbon Credit</span>'
+        : '<span class="badge bg-info text-dark"><i class="bi bi-patch-check-fill me-1"></i>Verified Asset</span>';
+      const title = l.listing_title || l.title || 'Environmental Project';
+      const country = l.location_country || l.country || '';
+      const summary = l.headline || l.description || l.summary_description || 'Environmental project asset with verified audit trail.';
+      const volume = Number(l.available_volume_tco2e !== undefined ? l.available_volume_tco2e : (l.offered_quantity || 0));
+      const price = l.indicative_price_per_tco2e !== undefined ? l.indicative_price_per_tco2e : l.unit_price;
+
+      return `
+        <div class="col-md-6 col-lg-4">
+          <div class="listing-card p-4">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge bg-light text-secondary border font-monospace small">${escapeHtml(l.listing_code || 'LISTING')}</span>
+              ${badge}
+            </div>
+
+            <h5 class="fw-bold text-dark mb-1">${escapeHtml(title)}</h5>
+            <div class="text-muted small mb-3">
+              <i class="bi bi-building me-1"></i> ${escapeHtml(l.organization_name || 'Verified Originator')}
+              ${country ? ` • <i class="bi bi-geo-alt me-1"></i> ${escapeHtml(country)}` : ''}
+            </div>
+
+            <p class="small text-secondary flex-grow-1 mb-3" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+              ${escapeHtml(summary)}
+            </p>
+
+            <div class="border-top pt-3 mt-auto">
+              <div class="d-flex justify-content-between align-items-end mb-3">
+                <div>
+                  <span class="text-muted small d-block">Available Volume</span>
+                  <strong class="fs-5 text-dark">${volume.toLocaleString()}</strong>
+                  <span class="small text-muted"> tCO2e</span>
+                </div>
+                <div class="text-end">
+                  <span class="text-muted small d-block">Indicative Price</span>
+                  ${price ? `
+                    <strong class="fs-5 text-success">$${Number(price).toFixed(2)}</strong>
+                    <span class="small text-muted"> / tCO2e</span>
+                  ` : '<span class="badge bg-light text-secondary border">Inquire</span>'}
+                </div>
+              </div>
+
+              <button class="btn btn-outline-brand w-100" onclick="MarketplaceApp.openDetailModal(${l.id})">
+                <i class="bi bi-info-circle me-1"></i> View Project Details
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    fetchListings();
+  };
+
+  const resetFilters = () => {
+    document.getElementById('filter-search').value = '';
+    document.getElementById('filter-domain').value = '';
+    document.getElementById('filter-classification').value = '';
+    document.getElementById('filter-country').value = '';
+    document.getElementById('filter-sort').value = 'newest';
+    fetchListings();
+  };
+
+  const openDetailModal = async (id) => {
+    const modalEl = document.getElementById('listingDetailModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+
+    const body = document.getElementById('modal-body');
+    body.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-success"></div></div>';
+
+    try {
+      const res = await EcoPulseApi.get(`/api/marketplace/listings/${id}`);
+      selectedListing = res.data;
+
+      const lTitle = selectedListing.listing_title || selectedListing.title || 'Environmental Project';
+      document.getElementById('modal-code').textContent = selectedListing.listing_code || 'LISTING';
+      document.getElementById('modal-title').textContent = lTitle;
+
+      const isCredit = selectedListing.classification_tier === 'issued_carbon_credit';
+      document.getElementById('modal-tier-badge').innerHTML = isCredit
+        ? '<span class="badge bg-success text-white"><i class="bi bi-award-fill me-1"></i>Issued Carbon Credit</span>'
+        : '<span class="badge bg-info text-dark"><i class="bi bi-patch-check-fill me-1"></i>Verified Asset</span>';
+
+      const evidence = selectedListing.public_evidence || [];
+      const volume = Number(selectedListing.available_volume_tco2e !== undefined ? selectedListing.available_volume_tco2e : (selectedListing.offered_quantity || 0));
+      const price = selectedListing.indicative_price_per_tco2e !== undefined ? selectedListing.indicative_price_per_tco2e : selectedListing.unit_price;
+      const country = selectedListing.location_country || selectedListing.country || '';
+      const region = selectedListing.location_region || selectedListing.region || '';
+      const summaryDesc = selectedListing.headline || selectedListing.description || selectedListing.summary_description || selectedListing.project_description || 'No description provided.';
+      const verifier = selectedListing.third_party_verifier || selectedListing.verifier || 'Accredited Third-Party';
+
+      body.innerHTML = `
+        <div class="mb-4">
+          <h6 class="fw-bold text-dark">Project Summary</h6>
+          <p class="text-secondary">${escapeHtml(summaryDesc)}</p>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="p-3 bg-light rounded border">
+              <span class="text-muted small d-block">Originating Organization</span>
+              <strong class="text-dark">${escapeHtml(selectedListing.organization_name || 'Verified Originator')}</strong>
+              ${country ? `<div class="small text-muted mt-1"><i class="bi bi-geo-alt"></i> ${escapeHtml(country)}${region ? `, ${escapeHtml(region)}` : ''}</div>` : ''}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 bg-light rounded border">
+              <span class="text-muted small d-block">Offered Quantity & Indicative Pricing</span>
+              <div class="d-flex justify-content-between align-items-center mt-1">
+                <div>
+                  <strong class="fs-5 text-dark">${volume.toLocaleString()}</strong>
+                  <span class="small text-muted"> tCO2e</span>
+                </div>
+                <div>
+                  ${price ? `<strong class="fs-5 text-success">$${Number(price).toFixed(2)}</strong> <span class="small text-muted">${escapeHtml(selectedListing.currency || 'USD')}</span>` : '<span class="badge bg-secondary">Inquire</span>'}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <h6 class="fw-bold text-dark mb-2">Technical Standards</h6>
+            <ul class="list-group list-group-flush border rounded small">
+              <li class="list-group-item d-flex justify-content-between">
+                <span class="text-muted">Methodology:</span>
+                <strong>${escapeHtml(selectedListing.methodology || 'Verified Carbon Standard')}</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span class="text-muted">Independent Verifier:</span>
+                <strong>${escapeHtml(verifier)}</strong>
+              </li>
+              ${isCredit ? `
+                <li class="list-group-item d-flex justify-content-between">
+                  <span class="text-muted">Carbon Registry:</span>
+                  <strong>${escapeHtml(selectedListing.registry_name || 'Standard Registry')}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span class="text-muted">Registry Serial / ID:</span>
+                  <span class="font-monospace fw-bold text-dark">${escapeHtml(selectedListing.registry_serial_or_id || '—')}</span>
+                </li>
+              ` : ''}
+            </ul>
+          </div>
+
+          <div class="col-md-6">
+            <h6 class="fw-bold text-dark mb-2">Terms & Commercial Notes</h6>
+            <div class="p-3 bg-light rounded border small text-secondary" style="min-height: 125px;">
+              ${escapeHtml(selectedListing.terms_and_notes || 'Direct inquiries accepted. Please specify order volume, delivery schedule, and legal entity for transfer agreement discussions.')}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h6 class="fw-bold text-dark mb-2"><i class="bi bi-file-earmark-check text-success me-1"></i> Verified Audit Documentation (Public Metadata)</h6>
+          ${evidence.length === 0 ? `
+            <div class="text-muted small">Independent audit report on record with EcoPulse moderation.</div>
+          ` : `
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered align-middle small mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Document Type</th>
+                    <th>Document Title</th>
+                    <th>Verified Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${evidence.map(e => `
+                    <tr>
+                      <td><span class="badge bg-light text-dark border">${escapeHtml(e.document_type || 'Audit Report')}</span></td>
+                      <td class="fw-semibold">${escapeHtml(e.file_title || 'Verification Certificate')}</td>
+                      <td class="text-muted">${e.created_at ? e.created_at.substring(0, 10) : '—'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          `}
+        </div>
+      `;
+    } catch (err) {
+      body.innerHTML = `<div class="alert alert-danger">${escapeHtml(err.message || 'Failed to load details')}</div>`;
+    }
+  };
+
+  const openInquiryModal = () => {
+    if (!selectedListing) return;
+
+    // Hide detail modal
+    const detailModalEl = document.getElementById('listingDetailModal');
+    const detailModal = bootstrap.Modal.getInstance(detailModalEl);
+    if (detailModal) detailModal.hide();
+
+    // Populate inquiry modal
+    const lTitle = selectedListing.listing_title || selectedListing.title || 'Environmental Project';
+    document.getElementById('inquiry-listing-title').textContent = lTitle;
+    document.getElementById('inquiry-listing-code').textContent = selectedListing.listing_code || '';
+    document.getElementById('inq-subject').value = `Inquiry regarding ${selectedListing.listing_code}: ${lTitle}`;
+
+    const inqModalEl = document.getElementById('inquiryModal');
+    const inqModal = new bootstrap.Modal(inqModalEl);
+    inqModal.show();
+  };
+
+  const handleInquirySubmit = async (event) => {
+    event.preventDefault();
+    if (!selectedListing) return;
+
+    const btn = document.getElementById('submit-inquiry-btn');
+    btn.disabled = true;
+
+    try {
+      const payload = {
+        listing_id: selectedListing.id,
+        buyer_name: document.getElementById('inq-name').value.trim(),
+        buyer_email: document.getElementById('inq-email').value.trim(),
+        buyer_organization: document.getElementById('inq-org').value.trim(),
+        inquiry_type: document.getElementById('inq-type').value,
+        subject: document.getElementById('inq-subject').value.trim(),
+        message: document.getElementById('inq-message').value.trim(),
+      };
+
+      const res = await EcoPulseApi.post('/api/marketplace/inquiries', payload);
+      const reference = res.data?.inquiry_reference || 'REF';
+
+      alert(`Inquiry successfully submitted to the project originator!\n\nYour Inquiry Reference: ${reference}\n\nThe originating organization has been notified and will reply to your provided email.`);
+
+      const inqModalEl = document.getElementById('inquiryModal');
+      const inqModal = bootstrap.Modal.getInstance(inqModalEl);
+      if (inqModal) inqModal.hide();
+
+      // Reset form
+      document.getElementById('inquiry-form').reset();
+    } catch (err) {
+      alert(`Submission error: ${err.message || 'Failed to submit inquiry'}`);
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  return {
+    init,
+    handleSearch,
+    resetFilters,
+    openDetailModal,
+    openInquiryModal,
+    handleInquirySubmit,
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', MarketplaceApp.init);
+</script>
+
+</body>
+</html>
+

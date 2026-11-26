@@ -1,0 +1,196 @@
+/**
+ * EcoPulse MVP V3 - Client Portal Dashboard CSS
+ */
+
+/* Portal Layout Shell */
+.portal-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--ep-bg-body);
+}
+
+/* Sidebar */
+.portal-sidebar {
+  width: var(--ep-sidebar-width);
+  background: var(--ep-bg-sidebar);
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1020;
+  transition: all 0.3s ease;
+}
+
+.portal-sidebar-brand {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.portal-sidebar-nav {
+  padding: 1rem 0.75rem;
+  flex-grow: 1;
+}
+
+.nav-section-title {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  padding: 0.75rem 0.75rem 0.35rem;
+  font-weight: 700;
+}
+
+.portal-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  color: #94a3b8;
+  border-radius: var(--ep-radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  margin-bottom: 2px;
+}
+
+.portal-nav-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.portal-nav-link.active {
+  background: var(--ep-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.35);
+}
+
+.portal-nav-link i {
+  font-size: 1.1rem;
+}
+
+/* Main Content Area */
+.portal-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Header */
+.portal-header {
+  height: var(--ep-header-height);
+  background: #ffffff;
+  border-bottom: 1px solid var(--ep-border-color);
+  padding: 0 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1010;
+}
+
+.portal-body {
+  padding: 2rem 1.75rem;
+  flex-grow: 1;
+}
+
+/* Metric / Stat Card */
+.stat-card {
+  background: #ffffff;
+  border: 1px solid var(--ep-border-color);
+  border-radius: var(--ep-radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--ep-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: var(--ep-shadow-md);
+  transform: translateY(-2px);
+}
+
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--ep-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+/* Workspace Banner */
+.workspace-banner {
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+  color: #ffffff;
+  border-radius: var(--ep-radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Scope Pill Badges */
+.badge-scope-1 {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: var(--ep-radius-pill);
+}
+
+.badge-scope-2 {
+  background: #e0f2fe;
+  color: #075985;
+  border: 1px solid #bae6fd;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: var(--ep-radius-pill);
+}
+
+.badge-scope-3 {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: var(--ep-radius-pill);
+}
+
+/* Responsive Sidebar Drawer for Mobile & Tablet */
+@media (max-width: 991.98px) {
+  .portal-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 1050;
+    transform: translateX(-100%);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+  }
+  .portal-sidebar.show {
+    transform: translateX(0);
+  }
+  .portal-header {
+    padding: 0 1rem;
+  }
+  .portal-body {
+    padding: 1.25rem 1rem;
+  }
+}

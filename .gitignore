@@ -1,0 +1,22 @@
+﻿# EcoPulse runtime and local data
+.env
+.env.*
+!.env.example
+*.log
+Backend/storage/logs/*
+Backend/storage/documents/*
+*.db
+*.sqlite
+*.sqlite3
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies and build artifacts
+node_modules/
+vendor/
+__pycache__/
+*.py[cod]

@@ -1,0 +1,91 @@
+/**
+ * EcoPulse MVP V3 - Base Typography and Layout
+ */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ep-text-main);
+  background-color: var(--ep-bg-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ep-text-main);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--ep-primary);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  color: var(--ep-primary-dark);
+}
+
+.text-brand {
+  color: var(--ep-primary) !important;
+}
+
+.bg-brand-dark {
+  background-color: var(--ep-primary-dark) !important;
+}
+
+.bg-brand {
+  background-color: var(--ep-primary) !important;
+}
+
+.btn-brand {
+  background-color: var(--ep-primary);
+  color: #ffffff;
+  border: 1px solid var(--ep-primary);
+  font-weight: 500;
+  border-radius: var(--ep-radius-md);
+  padding: 0.55rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.btn-brand:hover, .btn-brand:focus {
+  background-color: var(--ep-primary-dark);
+  border-color: var(--ep-primary-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25);
+}
+
+.btn-brand-outline {
+  background-color: transparent;
+  color: var(--ep-primary);
+  border: 1.5px solid var(--ep-primary);
+  font-weight: 500;
+  border-radius: var(--ep-radius-md);
+  padding: 0.55rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-outline:hover {
+  background-color: var(--ep-primary);
+  color: #ffffff;
+}
+
+.form-control, .form-select {
+  border-radius: var(--ep-radius-md);
+  border: 1.5px solid var(--ep-border-color);
+  padding: 0.65rem 0.95rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--ep-primary-accent);
+  box-shadow: 0 0 0 0.2rem rgba(82, 183, 136, 0.2);
+}
+
+.form-label {
+  font-weight: 500;
+  font-size: 0.88rem;
+  color: #334155;
+  margin-bottom: 0.35rem;
+}

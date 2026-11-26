@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoPulse — Multi-Domain Carbon Intelligence & Carbon Marketing SaaS</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Design Tokens & Styles -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, #132a22 0%, #1b4332 50%, #2d6a4f 100%);
+      color: #ffffff;
+      padding: 5rem 0 4.5rem;
+    }
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid var(--ep-border-color);
+      border-radius: var(--ep-radius-lg);
+      padding: 1.75rem;
+      transition: all 0.25s ease;
+      height: 100%;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--ep-shadow-lg);
+      border-color: var(--ep-primary-accent);
+    }
+    .domain-badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .classification-step {
+      border-left: 3px solid var(--ep-primary);
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Global Navbar -->
+<nav class="navbar navbar-expand-lg ep-navbar sticky-top">
+  <div class="container-fluid px-lg-5">
+    <a class="ep-navbar-brand text-decoration-none" href="index.html">
+      <div class="auth-brand-logo" style="width: 36px; height: 36px; font-size: 1.2rem;">
+        <i class="bi bi-globe-americas"></i>
+      </div>
+      <span>EcoPulse</span>
+      <span class="badge bg-light text-success border border-success-subtle fw-medium ms-1" style="font-size: 0.65rem;">MVP V3</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="#domains">Supported Domains</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="#accounting">Carbon Accounting</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="#marketplace-preview">Carbon Marketplace</a></li>
+        <li class="nav-item"><a class="nav-link text-dark fw-medium" href="#classifications">Asset Classification</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        <!-- Live API Status Indicator -->
+        <div id="backend-status" class="badge bg-light text-secondary border px-2 py-1 me-2 d-flex align-items-center gap-1" style="font-size: 0.75rem;">
+          <span class="spinner-grow spinner-grow-sm text-secondary" style="width: 0.6rem; height: 0.6rem;"></span>
+          <span>Checking API...</span>
+        </div>
+
+        <a href="login.html" class="btn btn-outline-secondary btn-sm px-3">Sign In</a>
+        <a href="register.html" class="btn btn-brand btn-sm px-3">Get Started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero-section">
+  <div class="container px-lg-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 text-white small mb-3 border border-white border-opacity-25">
+          <i class="bi bi-shield-check text-success"></i> ISO 14064 & GHG Protocol Aligned Engine
+        </div>
+        <h1 class="display-5 fw-bold mb-3 text-white">
+          Multi-Domain Carbon Intelligence & Carbon Marketing SaaS
+        </h1>
+        <p class="lead text-light mb-4" style="opacity: 0.9; font-size: 1.15rem;">
+          Empowering organizations across 9 major industries to measure Scope 1, 2, and 3 GHG emissions with verifiable factor audit trails, manage decarbonization initiatives, assess project readiness, and showcase verified environmental assets.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="register.html" class="btn btn-success btn-lg px-4 fw-semibold shadow-sm" style="background-color: #52b788; border-color: #52b788; color: #0d2b1d;">
+            <i class="bi bi-plus-circle me-1"></i> Register Organization
+          </a>
+          <a href="login.html" class="btn btn-outline-light btn-lg px-4">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Client Portal Login
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-5 mt-5 mt-lg-0">
+        <div class="card bg-white text-dark shadow-lg border-0 rounded-4 p-4">
+          <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+            <span class="fw-bold text-dark"><i class="bi bi-speedometer2 text-success me-2"></i>Platform Health & Node Info</span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle">Online</span>
+          </div>
+
+          <div class="mb-3">
+            <div class="small text-secondary mb-1">Central Calculation Engine Formula:</div>
+            <div class="p-2 bg-light rounded text-monospace small border">
+              <code>CO₂e = Quantity × Emission Factor (kgCO₂e/unit)</code><br>
+              <code>Tonnes CO₂e (tCO₂e) = kgCO₂e ÷ 1,000</code>
+            </div>
+          </div>
+
+          <div class="row g-2 text-center mb-3">
+            <div class="col-4">
+              <div class="p-2 bg-light rounded">
+                <div class="fw-bold text-dark fs-5">9</div>
+                <div class="text-secondary" style="font-size: 0.72rem;">Domains</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded">
+                <div class="fw-bold text-dark fs-5">38+</div>
+                <div class="text-secondary" style="font-size: 0.72rem;">Authentic Factors</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded">
+                <div class="fw-bold text-dark fs-5">4 Tiers</div>
+                <div class="text-secondary" style="font-size: 0.72rem;">Asset Classes</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <a href="login.html" class="btn btn-brand py-2">
+              <i class="bi bi-shield-lock me-1"></i> Access Super Admin & Client Portals
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Supported Domains Section -->
+<section id="domains" class="py-5">
+  <div class="container px-lg-5">
+    <div class="text-center mb-5">
+      <span class="text-uppercase text-brand fw-bold small">Enterprise Architecture</span>
+      <h2 class="fw-bold mt-1">9 Configurable Industry Domains</h2>
+      <p class="text-secondary mx-auto" style="max-width: 680px;">
+        EcoPulse operates on a unified multi-domain engine with customized activity data intake, emission factors, and operational KPIs for each industry sector.
+      </p>
+    </div>
+
+    <div class="domain-badge-grid">
+      <!-- 1. Healthcare -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-hospital fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">1. Healthcare</h5>
+        </div>
+        <p class="small text-secondary mb-0">Licensed bed-days, anesthetic and medical gases (N2O, Sevoflurane), incinerated biomedical waste, sterilization steam.</p>
+      </div>
+
+      <!-- 2. Manufacturing -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-gear-wide-connected fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">2. Manufacturing</h5>
+        </div>
+        <p class="small text-secondary mb-0">Industrial natural gas furnaces, high-voltage plant power, raw steel and polymer supply chain freight.</p>
+      </div>
+
+      <!-- 3. Agriculture -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-flower1 fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">3. Agriculture</h5>
+        </div>
+        <p class="small text-secondary mb-0">Synthetic nitrogen fertilizer (N2O soil flux), dairy cattle enteric fermentation (CH4), off-road tractor diesel.</p>
+      </div>
+
+      <!-- 4. Energy & Utilities -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-lightning-charge fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">4. Energy & Utilities</h5>
+        </div>
+        <p class="small text-secondary mb-0">Gas turbine combustion, high-voltage switchgear SF6 fugitives (GWP 24,300), grid transmission & distribution loss.</p>
+      </div>
+
+      <!-- 5. Transportation -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-truck fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">5. Transportation & Logistics</h5>
+        </div>
+        <p class="small text-secondary mb-0">Commercial long-haul articulated diesel trucks, delivery fleet vans, EV charging depots, and air freight ton-km.</p>
+      </div>
+
+      <!-- 6. Construction -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-buildings fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">6. Construction & Real Estate</h5>
+        </div>
+        <p class="small text-secondary mb-0">Embodied carbon in CEM I cement and steel rebar, on-site crane diesel, commercial office HVAC electricity.</p>
+      </div>
+
+      <!-- 7. Waste Management -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-trash3 fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">7. Waste Management</h5>
+        </div>
+        <p class="small text-secondary mb-0">Landfill fugitive methane emissions, landfill heavy compactor gas oil, MRF sorting electricity, and composting diversion.</p>
+      </div>
+
+      <!-- 8. Hospitality -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-cup-hot fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">8. Hospitality & Tourism</h5>
+        </div>
+        <p class="small text-secondary mb-0">Commercial hotel kitchen LPG, guest room HVAC electricity, industrial laundry steam, and food supply chain.</p>
+      </div>
+
+      <!-- 9. IT & Data Centers -->
+      <div class="feature-card">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-server fs-4 text-brand"></i>
+          <h5 class="mb-0 fw-bold">9. IT & Data Centers</h5>
+        </div>
+        <p class="small text-secondary mb-0">Data center UPS & server rack electricity, PUE monitoring, district chilled water loops, and hyperscale cloud compute.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Carbon Asset Classifications -->
+<section id="classifications" class="py-5 bg-white border-top border-bottom">
+  <div class="container px-lg-5">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <span class="text-uppercase text-brand fw-bold small">Integrity Framework</span>
+        <h2 class="fw-bold mb-3">4-Tier Carbon Asset Classification</h2>
+        <p class="text-secondary mb-4">
+          EcoPulse maintains strict integrity boundaries. Internal operational reductions and early stage project candidates are clearly distinguished from third-party verified environmental assets and official registry-issued carbon credits.
+        </p>
+        <div class="alert alert-secondary small border-start border-3 border-secondary">
+          <i class="bi bi-info-circle-fill me-1"></i> <strong>Disclaimer:</strong> EcoPulse does not issue credits, operate a registry, or process financial payments. All marketplace listings require accredited third-party verification evidence.
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="classification-step">
+          <h6 class="fw-bold mb-1">Tier 1: Operational Reduction</h6>
+          <p class="small text-secondary mb-0">Internal energy efficiency, HVAC upgrades, process optimizations, and facility capex reductions tracked against organizational baseline.</p>
+        </div>
+
+        <div class="classification-step">
+          <h6 class="fw-bold mb-1">Tier 2: Project Candidate</h6>
+          <p class="small text-secondary mb-0">Feasibility stage mitigation projects designed under accredited methodologies (VCS, Gold Standard) awaiting third-party validation.</p>
+        </div>
+
+        <div class="classification-step">
+          <h6 class="fw-bold mb-1">Tier 3: Verified Environmental Asset</h6>
+          <p class="small text-secondary mb-0">Projects with third-party verification statements, monitored mitigation data, and validated Project Design Documents (PDD).</p>
+        </div>
+
+        <div class="classification-step" style="border-left-color: #52b788;">
+          <h6 class="fw-bold text-success mb-1">Tier 4: Issued Carbon Credit</h6>
+          <p class="small text-secondary mb-0">Verified assets with authentic registry serial numbers and issuance documentation from accredited international registries.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 bg-dark text-white-50">
+  <div class="container px-lg-5 text-center">
+    <div class="d-flex align-items-center justify-content-center gap-2 mb-2 text-white">
+      <i class="bi bi-globe-americas text-success"></i>
+      <strong class="fs-5">EcoPulse MVP V3</strong>
+    </div>
+    <div class="small mb-3">
+      Multi-Domain Carbon Intelligence & Carbon Marketing Platform | PHP 8.2+ & MySQL 8
+    </div>
+    <div class="text-muted" style="font-size: 0.75rem;">
+      &copy; 2026 EcoPulse Platform. Designed for enterprise sustainability teams, environmental project developers, and accredited carbon asset buyers.
+    </div>
+  </div>
+</footer>
+
+<!-- Core Scripts -->
+<script src="assets/js/core/config.js"></script>
+<script src="assets/js/core/notifications.js"></script>
+<script src="assets/js/core/api.js"></script>
+<script src="assets/js/core/auth.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const statusBadge = document.getElementById('backend-status');
+
+  try {
+    const res = await EcoPulseApi.get('/api/health');
+    if (res && res.data) {
+      statusBadge.className = 'badge bg-success-subtle text-success border border-success-subtle px-2 py-1 me-2 d-flex align-items-center gap-1';
+      statusBadge.innerHTML = `<i class="bi bi-check-circle-fill"></i> MySQL ${res.data.db_version} API Connected`;
+    }
+  } catch (err) {
+    statusBadge.className = 'badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1 me-2 d-flex align-items-center gap-1';
+    statusBadge.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i> API Offline / Standby`;
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Deny direct public access to stored files and logs
+Deny from all

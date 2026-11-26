@@ -1,0 +1,52 @@
+/**
+ * EcoPulse MVP V3 - Design System Design Tokens
+ * Visual Identity: Forest Green, Emerald Green, Clean Neutrals, Charcoal Text
+ */
+
+:root {
+  /* Brand Primary Colors */
+  --ep-primary-dark: #1b4332;       /* Deep Forest Green */
+  --ep-primary: #2d6a4f;            /* Emerald Green */
+  --ep-primary-light: #40916c;      /* Leaf Green */
+  --ep-primary-accent: #52b788;     /* Mint Accent */
+  --ep-primary-subtle: #d8f3dc;     /* Light Green Tint */
+
+  /* Neutral Surface & Background Colors */
+  --ep-bg-body: #f8faf9;
+  --ep-bg-surface: #ffffff;
+  --ep-bg-sidebar: #132a22;         /* Dark Forest Sidebar */
+  --ep-bg-card: #ffffff;
+  --ep-border-color: #e2e8f0;
+  --ep-border-subtle: #edf2f7;
+
+  /* Typography Colors */
+  --ep-text-main: #1a202c;          /* Dark Charcoal */
+  --ep-text-muted: #64748b;         /* Slate Grey */
+  --ep-text-light: #94a3b8;
+  --ep-text-inverse: #ffffff;
+
+  /* Status / Feedback Colors */
+  --ep-success: #198754;
+  --ep-success-subtle: #d1e7dd;
+  --ep-warning: #d97706;
+  --ep-warning-subtle: #fef3c7;
+  --ep-danger: #dc2626;
+  --ep-danger-subtle: #fee2e2;
+  --ep-info: #0284c7;
+  --ep-info-subtle: #e0f2fe;
+
+  /* Shadows */
+  --ep-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --ep-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --ep-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+
+  /* Border Radii */
+  --ep-radius-sm: 6px;
+  --ep-radius-md: 10px;
+  --ep-radius-lg: 16px;
+  --ep-radius-pill: 9999px;
+
+  /* Layout */
+  --ep-sidebar-width: 260px;
+  --ep-header-height: 68px;
+}

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — EcoPulse Carbon Intelligence</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Design Tokens & Base Styles -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+<div class="auth-wrapper py-5">
+  <div class="auth-card wide">
+    
+    <!-- Brand Header -->
+    <div class="auth-brand">
+      <div class="auth-brand-logo">
+        <i class="bi bi-globe-americas"></i>
+      </div>
+      <div>
+        <h4 class="mb-0 fw-bold text-dark">EcoPulse</h4>
+        <span class="small text-muted">Carbon Intelligence & Marketing SaaS</span>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h5 class="fw-semibold mb-1">Create your EcoPulse Account</h5>
+      <p class="text-secondary small mb-0">Start calculating GHG emissions, managing environmental assets, or procuring credits.</p>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alert-box" class="d-none alert alert-danger small py-2 px-3 mb-3"></div>
+
+    <!-- Account Type Tabs -->
+    <ul class="nav nav-pills nav-fill mb-4 bg-light p-1 rounded-3" id="accountTypeTabs">
+      <li class="nav-item">
+        <button class="nav-link active py-2 small fw-semibold" id="tab-org" data-type="organization">
+          <i class="bi bi-building me-1"></i> Organization / Industrial Emitter
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link py-2 small fw-semibold text-secondary" id="tab-buyer" data-type="buyer">
+          <i class="bi bi-cart3 me-1"></i> Carbon Asset Buyer
+        </button>
+      </li>
+    </ul>
+
+    <!-- Registration Form -->
+    <form id="register-form">
+      <input type="hidden" id="account_type" value="organization">
+
+      <!-- SECTION 1: User Profile -->
+      <h6 class="text-uppercase text-secondary small fw-bold mb-3 border-bottom pb-1">
+        1. Account Administrator Profile
+      </h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="name" required placeholder="e.g. Dr. Robert Chen">
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Work Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" required placeholder="robert@enterprise.com">
+        </div>
+        <div class="col-md-6">
+          <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" id="password" required minlength="8" placeholder="Minimum 8 characters">
+        </div>
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 012-3456">
+        </div>
+      </div>
+
+      <!-- SECTION 2: Organization Profile (Visible for Organization account) -->
+      <div id="org-fields-container">
+        <h6 class="text-uppercase text-secondary small fw-bold mb-3 border-bottom pb-1">
+          2. Organization Entity Details
+        </h6>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label for="organization_name" class="form-label">Organization Legal Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="organization_name" placeholder="Apex Industrial Solutions Ltd">
+          </div>
+          <div class="col-md-6">
+            <label for="registration_number" class="form-label">Business Registration / CIN</label>
+            <input type="text" class="form-control" id="registration_number" placeholder="e.g. REG-2024-99881">
+          </div>
+          <div class="col-md-4">
+            <label for="industry_primary" class="form-label">Primary Industry Sector</label>
+            <select class="form-select" id="industry_primary">
+              <option value="Healthcare">Healthcare & Hospitals</option>
+              <option value="Manufacturing" selected>Manufacturing & Industrial</option>
+              <option value="Agriculture">Agriculture & Farming</option>
+              <option value="Energy & Utilities">Energy & Utilities</option>
+              <option value="Transportation & Logistics">Transportation & Logistics</option>
+              <option value="Construction & Real Estate">Construction & Real Estate</option>
+              <option value="Waste Management">Waste Management</option>
+              <option value="Hospitality & Tourism">Hospitality & Tourism</option>
+              <option value="IT & Data Centers">IT & Data Centers</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="country" value="India" required>
+          </div>
+          <div class="col-md-4">
+            <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="city" value="Mumbai" required>
+          </div>
+          <div class="col-12">
+            <label for="address" class="form-label">Facility Headquarters Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Unit 4B, Green Industrial Estate">
+          </div>
+        </div>
+
+        <!-- SECTION 3: Initial Domain Workspace Selector (The 9 Domains) -->
+        <h6 class="text-uppercase text-secondary small fw-bold mb-2 border-bottom pb-1">
+          3. Select Initial Operational Domain Workspace
+        </h6>
+        <p class="text-muted small mb-3">EcoPulse configures domain-specific activity intake, emission factors, and KPIs for your primary sector. You can activate additional domains anytime.</p>
+
+        <input type="hidden" id="initial_domain" value="manufacturing">
+
+        <div class="row g-2 mb-4">
+          <!-- 1. Healthcare -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="healthcare">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-hospital fs-5 text-brand"></i>
+                <strong class="small text-dark">Healthcare</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Beds, medical gases (N2O), bio-waste, sterilization.</div>
+            </div>
+          </div>
+
+          <!-- 2. Manufacturing -->
+          <div class="col-md-4">
+            <div class="domain-card-option active" data-domain="manufacturing">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-gear-wide-connected fs-5 text-brand"></i>
+                <strong class="small text-dark">Manufacturing</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Process boilers, furnaces, factory power, feedstocks.</div>
+            </div>
+          </div>
+
+          <!-- 3. Agriculture -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="agriculture">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-flower1 fs-5 text-brand"></i>
+                <strong class="small text-dark">Agriculture</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Fertilizers (N2O), livestock enteric CH4, tractors.</div>
+            </div>
+          </div>
+
+          <!-- 4. Energy & Utilities -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="energy_utilities">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-lightning-charge fs-5 text-brand"></i>
+                <strong class="small text-dark">Energy & Utilities</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Turbine combustion, switchgear SF6, grid loss.</div>
+            </div>
+          </div>
+
+          <!-- 5. Transportation -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="transportation_logistics">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-truck fs-5 text-brand"></i>
+                <strong class="small text-dark">Transportation</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Fleet logistics, freight ton-km, EV depots.</div>
+            </div>
+          </div>
+
+          <!-- 6. Construction -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="construction_realestate">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-buildings fs-5 text-brand"></i>
+                <strong class="small text-dark">Construction & RE</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Embodied cement/steel, building HVAC, cranes.</div>
+            </div>
+          </div>
+
+          <!-- 7. Waste Management -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="waste_management">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-trash3 fs-5 text-brand"></i>
+                <strong class="small text-dark">Waste Mgmt</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Landfill fugitive CH4, composting, MRF power.</div>
+            </div>
+          </div>
+
+          <!-- 8. Hospitality -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="hospitality_tourism">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-cup-hot fs-5 text-brand"></i>
+                <strong class="small text-dark">Hospitality</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Guest-nights, kitchen LPG, guest laundry steam.</div>
+            </div>
+          </div>
+
+          <!-- 9. IT & Data Centers -->
+          <div class="col-md-4">
+            <div class="domain-card-option" data-domain="it_datacenters">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-server fs-5 text-brand"></i>
+                <strong class="small text-dark">IT & Data Centers</strong>
+              </div>
+              <div class="text-muted" style="font-size: 0.76rem;">Server rack PUE, hyperscale vCPU, CRAC cooling.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="terms" required checked>
+        <label class="form-check-label small text-secondary" for="terms">
+          I agree to the EcoPulse Terms of Service, Environmental Accounting Standards, and Multi-Domain Privacy Policy.
+        </label>
+      </div>
+
+      <button type="submit" id="btn-submit" class="btn btn-brand w-100 py-2 mb-3 d-flex align-items-center justify-content-center gap-2">
+        <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+        <span id="btn-text">Create Organization Workspace</span>
+      </button>
+
+      <div class="text-center small text-secondary">
+        Already have an account? <a href="login.html" class="fw-semibold text-brand">Sign In</a>
+      </div>
+    </form>
+
+    <div class="mt-4 pt-3 border-top text-center">
+      <a href="index.html" class="small text-muted text-decoration-none">
+        <i class="bi bi-arrow-left me-1"></i> Back to EcoPulse Home
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="assets/js/core/config.js"></script>
+<script src="assets/js/core/notifications.js"></script>
+<script src="assets/js/core/api.js"></script>
+<script src="assets/js/core/auth.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('register-form');
+  const alertBox = document.getElementById('alert-box');
+  const accountTypeInput = document.getElementById('account_type');
+  const orgFieldsContainer = document.getElementById('org-fields-container');
+  const initialDomainInput = document.getElementById('initial_domain');
+  const btnSubmit = document.getElementById('btn-submit');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const btnText = document.getElementById('btn-text');
+
+  // Account Type Switcher
+  const tabOrg = document.getElementById('tab-org');
+  const tabBuyer = document.getElementById('tab-buyer');
+
+  tabOrg.addEventListener('click', () => {
+    tabOrg.classList.add('active');
+    tabOrg.classList.remove('text-secondary');
+    tabBuyer.classList.remove('active');
+    tabBuyer.classList.add('text-secondary');
+    accountTypeInput.value = 'organization';
+    orgFieldsContainer.classList.remove('d-none');
+    btnText.textContent = 'Create Organization Workspace';
+    document.getElementById('organization_name').required = true;
+  });
+
+  tabBuyer.addEventListener('click', () => {
+    tabBuyer.classList.add('active');
+    tabBuyer.classList.remove('text-secondary');
+    tabOrg.classList.remove('active');
+    tabOrg.classList.add('text-secondary');
+    accountTypeInput.value = 'buyer';
+    orgFieldsContainer.classList.add('d-none');
+    btnText.textContent = 'Create Buyer Account';
+    document.getElementById('organization_name').required = false;
+  });
+
+  // Domain card selector
+  document.querySelectorAll('.domain-card-option').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.domain-card-option').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      initialDomainInput.value = card.dataset.domain;
+    });
+  });
+
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertBox.classList.add('d-none');
+
+    btnSubmit.disabled = true;
+    btnSpinner.classList.remove('d-none');
+    btnText.textContent = 'Creating account...';
+
+    const payload = {
+      account_type: accountTypeInput.value,
+      name: document.getElementById('name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      password: document.getElementById('password').value,
+      phone: document.getElementById('phone').value.trim(),
+    };
+
+    if (payload.account_type === 'organization') {
+      payload.organization_name = document.getElementById('organization_name').value.trim();
+      payload.registration_number = document.getElementById('registration_number').value.trim();
+      payload.industry_primary = document.getElementById('industry_primary').value;
+      payload.country = document.getElementById('country').value.trim();
+      payload.city = document.getElementById('city').value.trim();
+      payload.address = document.getElementById('address').value.trim();
+      payload.initial_domain = initialDomainInput.value;
+    }
+
+    try {
+      const res = await EcoPulseAuth.register(payload);
+      EcoPulseNotify.success('Account successfully registered!');
+
+      setTimeout(() => {
+        if (payload.account_type === 'buyer') {
+          window.location.href = 'marketplace.html';
+        } else {
+          window.location.href = 'portal/client.html';
+        }
+      }, 700);
+
+    } catch (err) {
+      btnSubmit.disabled = false;
+      btnSpinner.classList.add('d-none');
+      btnText.textContent = payload.account_type === 'buyer' ? 'Create Buyer Account' : 'Create Organization Workspace';
+
+      alertBox.textContent = err.message || 'Registration failed. Please check form details.';
+      alertBox.classList.remove('d-none');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

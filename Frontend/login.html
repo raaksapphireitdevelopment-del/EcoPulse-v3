@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — EcoPulse Carbon Intelligence</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Design Tokens & Base Styles -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    <!-- Brand Header -->
+    <div class="auth-brand">
+      <div class="auth-brand-logo">
+        <i class="bi bi-globe-americas"></i>
+      </div>
+      <div>
+        <h4 class="mb-0 fw-bold text-dark">EcoPulse</h4>
+        <span class="small text-muted">Carbon Intelligence & Marketing SaaS</span>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h5 class="fw-semibold mb-1">Sign in to your account</h5>
+      <p class="text-secondary small mb-0">Access client portal, carbon accounting or marketplace.</p>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alert-box" class="d-none alert alert-danger small py-2 px-3 mb-3"></div>
+
+    <!-- Quick Demo Accounts Helper -->
+    <div class="demo-pills-box mb-3">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="small fw-semibold text-secondary"><i class="bi bi-lightning-charge me-1"></i>Quick Fill Demo Accounts:</span>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="demo-pill" data-email="admin@ecopulse.org" data-pass="Admin@123">
+          <i class="bi bi-shield-lock-fill text-danger"></i> Super Admin
+        </button>
+        <button type="button" class="demo-pill" data-email="sarah.jenkins@apexhealth.org" data-pass="Admin@123">
+          <i class="bi bi-building text-success"></i> Org Owner (Healthcare)
+        </button>
+        <button type="button" class="demo-pill" data-email="mark.reynolds@apexhealth.org" data-pass="Admin@123">
+          <i class="bi bi-person-gear text-primary"></i> Org Admin
+        </button>
+        <button type="button" class="demo-pill" data-email="elena@acmeventures.com" data-pass="Admin@123">
+          <i class="bi bi-cart3 text-warning"></i> Carbon Buyer
+        </button>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-form">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white text-muted border-end-0"><i class="bi bi-envelope"></i></span>
+          <input type="email" class="form-control border-start-0 ps-0" id="email" required placeholder="name@company.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <label for="password" class="form-label">Password</label>
+          <a href="#" class="small text-muted text-decoration-none" onclick="alert('Password reset instructions sent to registered administrator.'); return false;">Forgot password?</a>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text bg-white text-muted border-end-0"><i class="bi bi-key"></i></span>
+          <input type="password" class="form-control border-start-0 ps-0" id="password" required placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="remember" checked>
+        <label class="form-check-label small text-secondary" for="remember">
+          Keep me signed in on this workstation
+        </label>
+      </div>
+
+      <button type="submit" id="btn-submit" class="btn btn-brand w-100 py-2 mb-3 d-flex align-items-center justify-content-center gap-2">
+        <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+        <span id="btn-text">Sign In</span>
+      </button>
+
+      <div class="text-center small text-secondary">
+        Don't have an organization account? <a href="register.html" class="fw-semibold text-brand">Register here</a>
+      </div>
+    </form>
+
+    <div class="mt-4 pt-3 border-top text-center">
+      <a href="index.html" class="small text-muted text-decoration-none">
+        <i class="bi bi-arrow-left me-1"></i> Back to EcoPulse Home
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="assets/js/core/config.js"></script>
+<script src="assets/js/core/notifications.js"></script>
+<script src="assets/js/core/api.js"></script>
+<script src="assets/js/core/auth.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const form = document.getElementById('login-form');
+  const alertBox = document.getElementById('alert-box');
+  const emailInput = document.getElementById('email');
+  const passInput = document.getElementById('password');
+  const btnSubmit = document.getElementById('btn-submit');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const btnText = document.getElementById('btn-text');
+
+  // Quick fill pills
+  document.querySelectorAll('.demo-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      emailInput.value = btn.dataset.email;
+      passInput.value = btn.dataset.pass;
+      alertBox.classList.add('d-none');
+    });
+  });
+
+  // Check if already authenticated
+  try {
+    const session = await EcoPulseAuth.checkSession();
+    if (session.authenticated) {
+      EcoPulseNotify.info(`Signed in as ${session.user.name}`);
+      // Redirect based on role
+      if (session.user.system_role === 'buyer') {
+        window.location.href = 'marketplace.html';
+      } else {
+        window.location.href = 'portal/client.html';
+      }
+    }
+  } catch (e) {
+    // Session check skipped
+  }
+
+  // Handle Login submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertBox.classList.add('d-none');
+    
+    btnSubmit.disabled = true;
+    btnSpinner.classList.remove('d-none');
+    btnText.textContent = 'Verifying credentials...';
+
+    const email = emailInput.value.trim();
+    const password = passInput.value;
+
+    try {
+      const res = await EcoPulseAuth.login(email, password);
+      
+      EcoPulseNotify.success(`Welcome back, ${res.data.user.name}!`);
+
+      setTimeout(() => {
+        if (res.data.user.system_role === 'buyer') {
+          window.location.href = 'marketplace.html';
+        } else {
+          window.location.href = 'portal/client.html';
+        }
+      }, 600);
+
+    } catch (err) {
+      btnSubmit.disabled = false;
+      btnSpinner.classList.add('d-none');
+      btnText.textContent = 'Sign In';
+
+      alertBox.textContent = err.message || 'Login failed. Please verify credentials.';
+      alertBox.classList.remove('d-none');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
